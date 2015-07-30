@@ -10,13 +10,13 @@
 #import "Flickr.h"
 #import "FlickrPhoto.h"
 
-@interface ViewController () <UITextFieldDelegate>
+@interface ViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar; // properties to change apperance of outlets
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 
-@property (strong, nonatomic) NSMutableDictionary *searchResults; // Holds all of search results
+@property (strong, nonatomic) NSMutableDictionary *searchResults; // Holds individual folders of search results (arrays)
 @property (strong, nonatomic) NSMutableArray *searches; // Contains history of search entries
 @property (strong, nonatomic) Flickr *flickr; // Stores api key and various functions
 
@@ -56,21 +56,23 @@
     // TODO
 }
 
+// Called when user hits return
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.flickr searchFlickrForTerm:textField.text completionBlock:^(NSString *searchTerm, NSArray *results, NSError *error) {
         
         if (results && [results count] > 0) {
             
-            // Checks to see if not searched before, then save search term and add results to dictioary w/ term
+            // Only add to searches dictionary if searchTerm isnt found in search history
             if (![self.searches containsObject:searchTerm]) {
                 NSLog(@"Found %lu photos matching %@", (unsigned long)[results count], searchTerm);
                 // Add to 0 index to form stack
                 [self.searches insertObject:searchTerm atIndex:0];
+                // Add to dictionary
                 self.searchResults[searchTerm] = results;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                // placeholder: reload collection data after peforming search
+                
             });
         } else {
             NSLog(@"Error searching Flickr: %@", error.localizedDescription);
@@ -82,4 +84,57 @@
     [textField resignFirstResponder];
     return YES;
 }
+
+#pragma mark - UICollectionViewDataSource
+
+// Number of sections
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return [self.searches count];
+}
+
+// Number of objects in a section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSString *searchTerm = self.searches[section];
+    return [self.searchResults[searchTerm] count];
+}
+
+// Make a cell
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FlickrCell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+// When cell is selected
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    // TODO
+}
+
+// When a cell is deselected during multiple selection
+- (void)collectionView:(UICollectionView *)collectionView
+    didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+        // TODO: select item
+    
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+// Size of a given cell based on a photo
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *searchTerm = self.searches[indexPath.section];
+    FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
+    
+    CGSize retval = photo.thumbnail.size.width > 0 ?
+    photo.thumbnail.size : CGSizeMake(100, 100);
+    retval.height += 35;
+    retval.width += 35;
+    
+    return retval;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(50, 20, 50, 20);
+}
+
 @end
