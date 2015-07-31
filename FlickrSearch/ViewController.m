@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar; // properties to change apperance of outlets
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (strong, nonatomic) NSMutableDictionary *searchResults; // Holds individual folders of search results (arrays)
 @property (strong, nonatomic) NSMutableArray *searches; // Contains history of search entries
@@ -50,6 +51,10 @@
     [textFieldImage resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     [self.textField setBackground:textFieldImage];
     
+    // Register cells for reuse
+    [self.collectionView registerClass:[UICollectionViewCell class]
+            forCellWithReuseIdentifier:@"FlickrCell"];
+    
 }
 
 - (IBAction)shareButtonTapped:(id)sender; {
@@ -72,7 +77,7 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                
+                [self.collectionView reloadData];
             });
         } else {
             NSLog(@"Error searching Flickr: %@", error.localizedDescription);
@@ -93,13 +98,15 @@
 }
 
 // Number of objects in a section
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section {
     NSString *searchTerm = self.searches[section];
     return [self.searchResults[searchTerm] count];
 }
 
 // Make a cell
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FlickrCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     return cell;
@@ -108,7 +115,8 @@
 #pragma mark - UICollectionViewDelegate
 
 // When cell is selected
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView
+    didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     // TODO
 }
 
