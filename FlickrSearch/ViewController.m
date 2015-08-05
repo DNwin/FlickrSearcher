@@ -10,6 +10,7 @@
 #import "Flickr.h"
 #import "FlickrPhoto.h"
 #import "FlickrPhotoCell.h"
+#import "FlickrPhotoHeaderView.h"
 
 @interface ViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -117,6 +118,17 @@
     return cell;
     }
 
+// Need to implement for custom view header. This header will appear with every set of photo search term/results.
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    // Make a reusable headerView
+    FlickrPhotoHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FlickrPhotoHeaderView" forIndexPath:indexPath];
+    // Configure header
+    NSString *searchTerm = self.searches[indexPath.section];
+    [headerView setSearchText:searchTerm];
+    
+    return headerView;
+}
+
 #pragma mark - UICollectionViewDelegate
 
 // When cell is selected
@@ -131,6 +143,9 @@
         // TODO: select item
     
 }
+
+// F
+
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 // Size of a given cell based on a photo
