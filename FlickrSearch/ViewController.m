@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Flickr.h"
 #import "FlickrPhoto.h"
+#import "FlickrPhotoCell.h"
 
 @interface ViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -52,8 +53,8 @@
     [self.textField setBackground:textFieldImage];
     
     // Register cells for reuse
-    [self.collectionView registerClass:[UICollectionViewCell class]
-            forCellWithReuseIdentifier:@"FlickrCell"];
+    //[self.collectionView registerClass:[UICollectionViewCell class]
+    //       forCellWithReuseIdentifier:@"FlickrCell"];
     
 }
 
@@ -107,10 +108,14 @@
 // Make a cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FlickrCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+    // Use custom flickr cell
+    FlickrPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FlickrCell" forIndexPath:indexPath];
+    
+    NSString *searchTerm = self.searches[indexPath.section];
+    cell.photo = self.searchResults[searchTerm][indexPath.row];
+    
     return cell;
-}
+    }
 
 #pragma mark - UICollectionViewDelegate
 

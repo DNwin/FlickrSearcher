@@ -9,7 +9,7 @@
 #import "Flickr.h"
 #import "FlickrPhoto.h"
 
-#define kFlickrAPIKey @"90b12c60d1bf51043edaa246a0391c5f"
+#define kFlickrAPIKey @"5a4c0f0b4396c31ff8d5c9fbc770d39c"
 
 @implementation Flickr
 
