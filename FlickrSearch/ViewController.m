@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 dnwin. All rights reserved.
 //
 
+@import MessageUI;
+
 #import "ViewController.h"
 #import "Flickr.h"
 #import "FlickrPhoto.h"
@@ -13,7 +15,10 @@
 #import "FlickrPhotoHeaderView.h"
 #import "FlickrPhotoViewController.h"
 
-@interface ViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ViewController () <UITextFieldDelegate,
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout,
+MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar; // properties to change apperance of outlets
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
@@ -69,15 +74,19 @@
     
     // If not sharing, set to sharing mode, change button to done
     if (!self.sharing) {
+        NSLog(@"Sharing mode ON");
         self.sharing = YES;
         [shareButton setStyle:UIBarButtonItemStyleDone];
         [shareButton setTitle:@"Done"];
         [self.collectionView setAllowsMultipleSelection:YES];
     } else { // If sharing mode and user presses DONE
+        NSLog(@"Sharing mode OFF");
         self.sharing = NO;
         [shareButton setStyle:UIBarButtonItemStylePlain];
         [shareButton setTitle:@"Share"];
         [self.collectionView setAllowsMultipleSelection:NO];
+        
+        NSLog(@"%lu amount of selected photos", [self.selectedPhotos count]);
         
         // If any photos are selected
         if ([self.selectedPhotos count] > 0) {
@@ -87,6 +96,7 @@
         // Deselect all
         for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
             [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+
         }
         // Clear selected objects
         [self.selectedPhotos removeAllObjects];
@@ -94,8 +104,35 @@
     }
 }
 
+// Opens up a mail sender VC
 - (void)showMailComposerAndSend {
-    // TODO
+    // If can send mail
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+        
+        mailer.mailComposeDelegate = self;
+        
+        [mailer setSubject:@"Check out these photos"];
+        
+        NSMutableString *emailBody = [NSMutableString string];
+        
+        // Get url from photos and add to email body as html img tag
+        for (FlickrPhoto *flickrPhoto in self.selectedPhotos) {
+            NSString *url = [Flickr flickrPhotoURLForFlickrPhoto:flickrPhoto size:@"m"];
+            // Append image to email body
+            [emailBody appendFormat:@"<div><img src='%@'></div><br>", url];
+        }
+        
+        [mailer setMessageBody:emailBody isHTML:YES];
+        // Present modally
+        NSLog(@"Presenting view controller");
+        [self presentViewController:mailer animated:YES completion:^{
+            
+        }];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mail Fail" message:@"No in-app email support" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 // Called when user hits return
@@ -169,27 +206,30 @@
 // When cell is selected
 - (void)collectionView:(UICollectionView *)collectionView
     didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+
+
     if (!self.sharing) {
-        // Popup modal vc if not sharing
-        if (!self.sharing) {
             NSString *searchTerm = self.searches[indexPath.section];
             FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
             // Present modally
             [self performSegueWithIdentifier:@"ShowFlickrPhoto" sender:photo];
             // Remove selection
             [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
-        } else { // Sharing mode
+    } else { // Sharing mode
             NSString *searchTerm = self.searches[indexPath.section];
             // Get current photo selected and add to mutable array
             FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
             [self.selectedPhotos addObject:photo];
-        }
     }
 }
 
 // When a cell is deselected during multiple selection enabled
 - (void)collectionView:(UICollectionView *)collectionView
     didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+
+    
     // Remove photo from currently selected array
     NSString *searchTerm = self.searches[indexPath.section];
     FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
@@ -225,6 +265,15 @@
         flickrPhotoViewController.flickrPhoto = sender;
 
     }
+}
+
+#pragma mark - Mail controller
+
+// When done composing email
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [controller dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 @end

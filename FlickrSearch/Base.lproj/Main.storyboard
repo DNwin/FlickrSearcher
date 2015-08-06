@@ -62,7 +62,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M3a-gp-iqP">
-                                                    <rect key="frame" x="0.0" y="0.0" width="305" height="297"/>
+                                                    <rect key="frame" x="10" y="10" width="285" height="277"/>
                                                 </imageView>
                                                 <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="pushpin.png" translatesAutoresizingMaskIntoConstraints="NO" id="JU6-P7-16t">
                                                     <rect key="frame" x="140.5" y="16" width="22" height="31"/>
@@ -70,15 +70,14 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="M3a-gp-iqP" firstAttribute="top" secondItem="u6O-No-fKH" secondAttribute="topMargin" constant="-8" id="6p1-7S-ZPg"/>
+                                            <constraint firstItem="M3a-gp-iqP" firstAttribute="top" secondItem="u6O-No-fKH" secondAttribute="topMargin" constant="2" id="6p1-7S-ZPg"/>
                                             <constraint firstItem="JU6-P7-16t" firstAttribute="centerX" secondItem="M3a-gp-iqP" secondAttribute="centerX" constant="-0.5" id="9Ah-jo-TYd"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="M3a-gp-iqP" secondAttribute="bottom" constant="-8" id="9oe-Sa-HmH"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="M3a-gp-iqP" secondAttribute="bottom" constant="2" id="9oe-Sa-HmH"/>
                                             <constraint firstAttribute="centerX" secondItem="JU6-P7-16t" secondAttribute="centerX" id="DCq-9X-Mya"/>
                                             <constraint firstItem="JU6-P7-16t" firstAttribute="top" secondItem="M3a-gp-iqP" secondAttribute="top" id="N0E-KP-cS1"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="M3a-gp-iqP" secondAttribute="trailing" constant="-8" id="T8I-B3-5tJ"/>
-                                            <constraint firstItem="M3a-gp-iqP" firstAttribute="leading" secondItem="u6O-No-fKH" secondAttribute="leadingMargin" constant="-8" id="vrJ-FD-L2z"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="M3a-gp-iqP" secondAttribute="trailing" constant="2" id="T8I-B3-5tJ"/>
+                                            <constraint firstItem="M3a-gp-iqP" firstAttribute="leading" secondItem="u6O-No-fKH" secondAttribute="leadingMargin" constant="2" id="vrJ-FD-L2z"/>
                                             <constraint firstItem="JU6-P7-16t" firstAttribute="top" secondItem="u6O-No-fKH" secondAttribute="topMargin" constant="8" id="z3G-37-UDu"/>
                                         </constraints>
                                         <variation key="default">
