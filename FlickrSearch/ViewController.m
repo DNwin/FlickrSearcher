@@ -96,6 +96,7 @@ MFMailComposeViewControllerDelegate>
         // Deselect all
         for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
             [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+            [[(FlickrPhotoCell *)[self.collectionView cellForItemAtIndexPath:indexPath] imageView] setAlpha:1.0];
 
         }
         // Clear selected objects
@@ -163,6 +164,7 @@ MFMailComposeViewControllerDelegate>
     [textField resignFirstResponder];
     return YES;
 }
+#pragma mark - UICollectionView
 
 #pragma mark - UICollectionViewDataSource
 
@@ -221,6 +223,7 @@ MFMailComposeViewControllerDelegate>
             // Get current photo selected and add to mutable array
             FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
             [self.selectedPhotos addObject:photo];
+            [[(FlickrPhotoCell *)[self.collectionView cellForItemAtIndexPath:indexPath] imageView] setAlpha:0.67];
     }
 }
 
@@ -234,6 +237,7 @@ MFMailComposeViewControllerDelegate>
     NSString *searchTerm = self.searches[indexPath.section];
     FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
     [self.selectedPhotos removeObject:photo];
+    [[(FlickrPhotoCell *)[self.collectionView cellForItemAtIndexPath:indexPath] imageView] setAlpha:1.0];
 }
 
 

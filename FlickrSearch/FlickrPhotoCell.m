@@ -21,4 +21,20 @@
     self.imageView.image = _photo.thumbnail;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Configure a colored background for use in selection with alpha
+        UIView *background = [[UIView alloc] initWithFrame:self.bounds];
+        background.backgroundColor = [UIColor blueColor];
+        self.backgroundView = background;
+    }
+    
+    return self;
+}
+
+- (void)prepareForReuse {
+    [self.imageView setAlpha:1.0];
+}
+
 @end
