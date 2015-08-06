@@ -101,14 +101,14 @@
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bV-sg-mrb">
                                             <rect key="frame" x="279" y="14" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="oq6-3C-UHC" secondAttribute="trailing" constant="101" id="2T9-4n-vYC"/>
-                                        <constraint firstItem="oq6-3C-UHC" firstAttribute="leading" secondItem="OaB-qI-q9z" secondAttribute="leadingMargin" constant="102" id="Ekb-mo-VOt"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="oq6-3C-UHC" secondAttribute="trailing" constant="30" id="2T9-4n-vYC"/>
+                                        <constraint firstItem="oq6-3C-UHC" firstAttribute="leading" secondItem="OaB-qI-q9z" secondAttribute="leadingMargin" constant="30" id="Ekb-mo-VOt"/>
                                         <constraint firstItem="oq6-3C-UHC" firstAttribute="centerX" secondItem="8bV-sg-mrb" secondAttribute="centerX" constant="0.5" id="Pgv-Wi-uDT"/>
                                         <constraint firstItem="oq6-3C-UHC" firstAttribute="centerY" secondItem="8bV-sg-mrb" secondAttribute="centerY" constant="0.5" id="wJ9-pU-bws"/>
                                     </constraints>
@@ -165,6 +165,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Obj-fp-lis">
+                                <rect key="frame" x="0.0" y="114" width="600" height="429"/>
+                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nf3-ux-VKj">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <items>
@@ -175,20 +178,29 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Obj-fp-lis">
-                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="nf3-ux-VKj" firstAttribute="leading" secondItem="QQ3-PR-fOT" secondAttribute="leadingMargin" constant="-16" id="2dy-k1-stS"/>
                             <constraint firstItem="nf3-ux-VKj" firstAttribute="top" secondItem="pQT-uq-vjX" secondAttribute="bottom" id="3AV-x5-GA4"/>
+                            <constraint firstItem="Obj-fp-lis" firstAttribute="leading" secondItem="QQ3-PR-fOT" secondAttribute="leadingMargin" constant="-16" id="3nC-SL-YqB"/>
                             <constraint firstItem="zHv-rN-nQ2" firstAttribute="top" secondItem="Obj-fp-lis" secondAttribute="bottom" id="8k9-wF-eqE"/>
+                            <constraint firstItem="zHv-rN-nQ2" firstAttribute="top" secondItem="Obj-fp-lis" secondAttribute="bottom" id="Gd2-aB-bGM"/>
+                            <constraint firstItem="Obj-fp-lis" firstAttribute="top" secondItem="nf3-ux-VKj" secondAttribute="top" constant="5" id="Xp3-o6-gXt"/>
                             <constraint firstItem="Obj-fp-lis" firstAttribute="top" secondItem="nf3-ux-VKj" secondAttribute="bottom" id="Y06-lB-Pun"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Obj-fp-lis" secondAttribute="trailing" constant="-16" id="lZe-3M-XnN"/>
                             <constraint firstItem="Obj-fp-lis" firstAttribute="leading" secondItem="QQ3-PR-fOT" secondAttribute="leadingMargin" constant="-16" id="mE8-ng-kwU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nf3-ux-VKj" secondAttribute="trailing" constant="-16" id="pgj-IE-K3n"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Obj-fp-lis" secondAttribute="trailing" constant="-16" id="zSa-UO-vSo"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Y06-lB-Pun"/>
+                                <exclude reference="mE8-ng-kwU"/>
+                                <exclude reference="zSa-UO-vSo"/>
+                                <exclude reference="8k9-wF-eqE"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="Obj-fp-lis" id="YvS-fr-8jq"/>

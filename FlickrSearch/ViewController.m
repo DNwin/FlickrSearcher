@@ -137,12 +137,6 @@
 // When cell is selected
 - (void)collectionView:(UICollectionView *)collectionView
     didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    // TODO
-}
-
-// When a cell is deselected during multiple selection
-- (void)collectionView:(UICollectionView *)collectionView
-    didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.sharing) {
         // Popup modal vc if not sharing
         if (!self.sharing) {
@@ -156,6 +150,12 @@
             // TODO: Multi-selection
         }
     }
+}
+
+// When a cell is deselected during multiple selection
+- (void)collectionView:(UICollectionView *)collectionView
+    didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+
     
 }
 
@@ -187,6 +187,7 @@
     if ([segue.identifier  isEqualToString:@"ShowFlickrPhoto"]) {
         FlickrPhotoViewController *flickrPhotoViewController = segue.destinationViewController;
         flickrPhotoViewController.flickrPhoto = sender;
+
     }
 }
 

@@ -20,9 +20,34 @@
 
 @implementation FlickrPhotoViewController
 
-- (IBAction)done:(id)sender {
-    // TODO
+// Will usually use a new photo everytime it appears
+- (void)viewDidAppear:(BOOL)animated {
+    self.imageView.image = nil;
+    // If large photo fetched, set
+    if (self.flickrPhoto.largeImage) {
+        self.imageView.image = self.flickrPhoto.largeImage;
+    } else { // Display stretched thumbnail if not
+        // Small image
+        self.imageView.image = self.flickrPhoto.thumbnail;
+        
+        // Load large image
+        [Flickr loadImageForPhoto:self.flickrPhoto thumbnail:NO completionBlock:^(UIImage *photoImage, NSError *error) {
+            if (!error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.imageView.image = self.flickrPhoto.largeImage;
+                });
+            }}];
+    }
+
 }
+
+
+- (IBAction)done:(id)sender {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
 
 
 
