@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSMutableArray *searches; // Contains history of search entries
 @property (strong, nonatomic) Flickr *flickr; // Stores api key and various functions
 
+@property (nonatomic, strong) NSMutableArray *selectedPhotos; // Holds selection of photos during share mode
 @property (nonatomic) BOOL sharing; // Set to YES when user is making multi-selection to share imagest
 
 - (IBAction)shareButtonTapped:(id)sender;
@@ -56,6 +57,7 @@
     [textFieldImage resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     [self.textField setBackground:textFieldImage];
     
+    self.selectedPhotos = [@[] mutableCopy];
     // Register cells for reuse
     //[self.collectionView registerClass:[UICollectionViewCell class]
     //       forCellWithReuseIdentifier:@"FlickrCell"];
@@ -63,6 +65,36 @@
 }
 
 - (IBAction)shareButtonTapped:(id)sender; {
+    UIBarButtonItem *shareButton = (UIBarButtonItem *)sender;
+    
+    // If not sharing, set to sharing mode, change button to done
+    if (!self.sharing) {
+        self.sharing = YES;
+        [shareButton setStyle:UIBarButtonItemStyleDone];
+        [shareButton setTitle:@"Done"];
+        [self.collectionView setAllowsMultipleSelection:YES];
+    } else { // If sharing mode and user presses DONE
+        self.sharing = NO;
+        [shareButton setStyle:UIBarButtonItemStylePlain];
+        [shareButton setTitle:@"Share"];
+        [self.collectionView setAllowsMultipleSelection:NO];
+        
+        // If any photos are selected
+        if ([self.selectedPhotos count] > 0) {
+            // Mail photos
+            [self showMailComposerAndSend];
+        }
+        // Deselect all
+        for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
+            [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+        }
+        // Clear selected objects
+        [self.selectedPhotos removeAllObjects];
+        
+    }
+}
+
+- (void)showMailComposerAndSend {
     // TODO
 }
 
@@ -146,20 +178,24 @@
             [self performSegueWithIdentifier:@"ShowFlickrPhoto" sender:photo];
             // Remove selection
             [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
-        } else {
-            // TODO: Multi-selection
+        } else { // Sharing mode
+            NSString *searchTerm = self.searches[indexPath.section];
+            // Get current photo selected and add to mutable array
+            FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
+            [self.selectedPhotos addObject:photo];
         }
     }
 }
 
-// When a cell is deselected during multiple selection
+// When a cell is deselected during multiple selection enabled
 - (void)collectionView:(UICollectionView *)collectionView
     didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-
-    
+    // Remove photo from currently selected array
+    NSString *searchTerm = self.searches[indexPath.section];
+    FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
+    [self.selectedPhotos removeObject:photo];
 }
 
-// F
 
 
 #pragma mark - UICollectionViewDelegateFlowLayout
