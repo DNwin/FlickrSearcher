@@ -11,6 +11,7 @@
 #import "FlickrPhoto.h"
 #import "FlickrPhotoCell.h"
 #import "FlickrPhotoHeaderView.h"
+#import "FlickrPhotoViewController.h"
 
 @interface ViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -22,6 +23,8 @@
 @property (strong, nonatomic) NSMutableDictionary *searchResults; // Holds individual folders of search results (arrays)
 @property (strong, nonatomic) NSMutableArray *searches; // Contains history of search entries
 @property (strong, nonatomic) Flickr *flickr; // Stores api key and various functions
+
+@property (nonatomic) BOOL sharing; // Set to YES when user is making multi-selection to share imagest
 
 - (IBAction)shareButtonTapped:(id)sender;
 
@@ -140,7 +143,19 @@
 // When a cell is deselected during multiple selection
 - (void)collectionView:(UICollectionView *)collectionView
     didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-        // TODO: select item
+    if (!self.sharing) {
+        // Popup modal vc if not sharing
+        if (!self.sharing) {
+            NSString *searchTerm = self.searches[indexPath.section];
+            FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
+            // Present modally
+            [self performSegueWithIdentifier:@"ShowFlickrPhoto" sender:photo];
+            // Remove selection
+            [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+        } else {
+            // TODO: Multi-selection
+        }
+    }
     
 }
 
@@ -163,6 +178,16 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(50, 20, 50, 20);
+}
+
+#pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Present modally
+    if ([segue.identifier  isEqualToString:@"ShowFlickrPhoto"]) {
+        FlickrPhotoViewController *flickrPhotoViewController = segue.destinationViewController;
+        flickrPhotoViewController.flickrPhoto = sender;
+    }
 }
 
 @end

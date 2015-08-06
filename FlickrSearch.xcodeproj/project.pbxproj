@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9566E2D01B71FFC800012276 /* FlickrPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9566E2CF1B71FFC800012276 /* FlickrPhotoCell.m */; };
 		9566E2D31B720D7800012276 /* FlickrPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9566E2D21B720D7800012276 /* FlickrPhotoHeaderView.m */; };
+		9566E2D61B7350B400012276 /* FlickrPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9566E2D51B7350B400012276 /* FlickrPhotoViewController.m */; };
 		95B7FAE21B38A46C00B3B4A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B7FAE11B38A46C00B3B4A0 /* main.m */; };
 		95B7FAE51B38A46C00B3B4A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B7FAE41B38A46C00B3B4A0 /* AppDelegate.m */; };
 		95B7FAE81B38A46C00B3B4A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B7FAE71B38A46C00B3B4A0 /* ViewController.m */; };
@@ -55,6 +56,8 @@
 		9566E2CF1B71FFC800012276 /* FlickrPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlickrPhotoCell.m; path = FlickrSearch/FlickrPhotoCell.m; sourceTree = SOURCE_ROOT; };
 		9566E2D11B720D7800012276 /* FlickrPhotoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhotoHeaderView.h; sourceTree = "<group>"; };
 		9566E2D21B720D7800012276 /* FlickrPhotoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhotoHeaderView.m; sourceTree = "<group>"; };
+		9566E2D41B7350B400012276 /* FlickrPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhotoViewController.h; sourceTree = "<group>"; };
+		9566E2D51B7350B400012276 /* FlickrPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhotoViewController.m; sourceTree = "<group>"; };
 		95B7FADC1B38A46C00B3B4A0 /* FlickrSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B7FAE01B38A46C00B3B4A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95B7FAE11B38A46C00B3B4A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 				95B7FAE91B38A46C00B3B4A0 /* Main.storyboard */,
 				9566E2D11B720D7800012276 /* FlickrPhotoHeaderView.h */,
 				9566E2D21B720D7800012276 /* FlickrPhotoHeaderView.m */,
+				9566E2D41B7350B400012276 /* FlickrPhotoViewController.h */,
+				9566E2D51B7350B400012276 /* FlickrPhotoViewController.m */,
 				95B7FAEC1B38A46C00B3B4A0 /* Images.xcassets */,
 				95B7FAEE1B38A46C00B3B4A0 /* LaunchScreen.xib */,
 				95B7FADF1B38A46C00B3B4A0 /* Supporting Files */,
@@ -337,6 +342,7 @@
 			files = (
 				9566E2D31B720D7800012276 /* FlickrPhotoHeaderView.m in Sources */,
 				9566E2D01B71FFC800012276 /* FlickrPhotoCell.m in Sources */,
+				9566E2D61B7350B400012276 /* FlickrPhotoViewController.m in Sources */,
 				95B7FAE81B38A46C00B3B4A0 /* ViewController.m in Sources */,
 				95B7FAE51B38A46C00B3B4A0 /* AppDelegate.m in Sources */,
 				95B7FB331B390CAC00B3B4A0 /* Flickr.m in Sources */,

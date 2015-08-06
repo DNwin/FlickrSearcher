@@ -102,7 +102,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bV-sg-mrb">
                                             <rect key="frame" x="279" y="14" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -146,10 +146,57 @@
                         <outlet property="shareButton" destination="HPy-Fq-7Ld" id="dqO-oM-J26"/>
                         <outlet property="textField" destination="4K0-sM-aBL" id="MTl-18-wME"/>
                         <outlet property="toolbar" destination="BaK-j2-nDP" id="FtE-sO-PZK"/>
+                        <segue destination="aw4-rS-zm6" kind="presentation" identifier="ShowFlickrPhoto" modalPresentationStyle="formSheet" id="Kh5-Ud-rUW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="303" y="165"/>
+        </scene>
+        <!--Flickr Photo View Controller-->
+        <scene sceneID="k0s-Ra-oye">
+            <objects>
+                <viewController id="aw4-rS-zm6" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pQT-uq-vjX"/>
+                        <viewControllerLayoutGuide type="bottom" id="zHv-rN-nQ2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QQ3-PR-fOT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nf3-ux-VKj">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="done" id="ch4-1G-kap">
+                                        <connections>
+                                            <action selector="done:" destination="aw4-rS-zm6" id="SVH-8k-7Z3"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Obj-fp-lis">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nf3-ux-VKj" firstAttribute="leading" secondItem="QQ3-PR-fOT" secondAttribute="leadingMargin" constant="-16" id="2dy-k1-stS"/>
+                            <constraint firstItem="nf3-ux-VKj" firstAttribute="top" secondItem="pQT-uq-vjX" secondAttribute="bottom" id="3AV-x5-GA4"/>
+                            <constraint firstItem="zHv-rN-nQ2" firstAttribute="top" secondItem="Obj-fp-lis" secondAttribute="bottom" id="8k9-wF-eqE"/>
+                            <constraint firstItem="Obj-fp-lis" firstAttribute="top" secondItem="nf3-ux-VKj" secondAttribute="bottom" id="Y06-lB-Pun"/>
+                            <constraint firstItem="Obj-fp-lis" firstAttribute="leading" secondItem="QQ3-PR-fOT" secondAttribute="leadingMargin" constant="-16" id="mE8-ng-kwU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nf3-ux-VKj" secondAttribute="trailing" constant="-16" id="pgj-IE-K3n"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Obj-fp-lis" secondAttribute="trailing" constant="-16" id="zSa-UO-vSo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="Obj-fp-lis" id="YvS-fr-8jq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uMy-Bb-YA8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="989" y="149"/>
         </scene>
     </scenes>
     <resources>
